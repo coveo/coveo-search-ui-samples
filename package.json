@@ -13,7 +13,7 @@
     "watchTest": "karma start",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
-    "deploy": "git subtree push --prefix dist origin gh-pages"
+    "prod": "set BUILD=./docs && npm run setup && npm run css && npm run minimize"
   },
   "keywords": [
     "coveo",

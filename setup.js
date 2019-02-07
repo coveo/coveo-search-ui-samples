@@ -1,9 +1,8 @@
-'use strict';
 const fs = require('fs');
 const ncp = require('ncp').ncp;
 const components = require("./components");
 
-const rootFolder = "./bin";
+const rootFolder = process.env.BUILD || "./bin";
 
 const directoriesToCreate = [
   rootFolder,

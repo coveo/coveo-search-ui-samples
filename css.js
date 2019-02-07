@@ -3,7 +3,7 @@ const component = require("./components");
 const sass = require('node-sass');
 const fs = require('fs');
 
-const rootFolder = "./bin";
+const rootFolder = process.env.BUILD || "./bin";
 
 const createCssFileForComponent = (componentName) => {
   console.log(`Creating css file for ${componentName}`);
