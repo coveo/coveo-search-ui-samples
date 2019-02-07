@@ -3,7 +3,7 @@ const fs = require('fs');
 const ncp = require('ncp').ncp;
 const components = require("./components");
 
-const rootFolder = "./docs";
+const rootFolder = "./bin";
 
 const directoriesToCreate = [
   rootFolder,

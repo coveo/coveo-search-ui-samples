@@ -12,7 +12,8 @@
     "watch": "npm run setup && npm run css && webpack-serve --config webpack-serve.config --progress --colors",
     "watchTest": "karma start",
     "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "keywords": [
     "coveo",
