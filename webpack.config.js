@@ -10,7 +10,7 @@ if (minimize) {
   console.log('Building non minified version of the library'.bgGreen.red);
 }
 
-const rootFolder = "./bin";
+const rootFolder = "./docs";
 
 const entries = {};
 components.getComponentNames().forEach(componentName => {
