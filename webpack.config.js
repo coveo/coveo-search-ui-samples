@@ -10,6 +10,8 @@ if (minimize) {
   console.log('Building non minified version of the library'.bgGreen.red);
 }
 
+const rootFolder = "./docs";
+
 const entries = {};
 components.getComponentNames().forEach(componentName => {
   entries[componentName] = components.getSrcEntryForComponent(componentName)
@@ -20,8 +22,7 @@ module.exports = [{
   devtool: 'source-map',
   entry: entries,
   output: {
-    path: require('path').resolve('./bin/js'),
-    // Output a filename based on the entry. This will generate a "coveo.extension.js" file.
+    path: require('path').resolve(`${rootFolder}/js`),
     filename: minimize ? `[name].min.js` : `[name].js`,
     library: 'CoveoExtension'
   },
