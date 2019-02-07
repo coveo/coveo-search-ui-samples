@@ -2,7 +2,7 @@ const fs = require('fs');
 const ncp = require('ncp').ncp;
 const components = require("./components");
 
-const rootFolder = process.env.BUILD || "./bin";
+const rootFolder = "./docs";
 
 const directoriesToCreate = [
   rootFolder,
@@ -11,7 +11,6 @@ const directoriesToCreate = [
   `${rootFolder}/js`,
   `${rootFolder}/templates`
 ]
-
 
 const pagesToCopy = components.getComponentNames().map(componentName => {
   const sourceToCopy = components.getPageEntryForComponent(componentName);

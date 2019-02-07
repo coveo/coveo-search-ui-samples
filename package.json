@@ -13,7 +13,7 @@
     "watchTest": "karma start",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
-    "prod": "set BUILD=./docs && npm run setup && npm run css && npm run minimize"
+    "prod": "npm run setup && npm run css && npm run minimize"
   },
   "keywords": [
     "coveo",
@@ -32,7 +32,7 @@
   "devDependencies": {
     "@types/jasmine": "^2.6.0",
     "colors": "^1.1.2",
-    "coveo-search-ui": "^2.4382.8",
+    "coveo-search-ui": "2.4382.8",
     "coveo-search-ui-tests": "0.0.5",
     "istanbul-instrumenter-loader": "^3.0.0",
     "jasmine": "^3.1.0",
