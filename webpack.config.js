@@ -24,7 +24,7 @@ module.exports = [{
   output: {
     path: require('path').resolve(`${rootFolder}/js`),
     filename: minimize ? `[name].min.js` : `[name].js`,
-    library: 'CoveoExtension'
+    library: 'Coveo[name]'
   },
   externals: [{
     // Defines the module "coveo-search-ui" as external, "Coveo" is defined in the global scope. 
