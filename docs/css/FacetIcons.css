@@ -1,24 +1,54 @@
 @charset "UTF-8";
-.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="User"]:before, .coveo-facet-search-results span.coveo-facet-value-caption[title="User"]:before {
+.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="User"]:before,
+.CoveoFacet[data-field="@objecttype"] .coveo-facet-breadcrumb-value[title^="User"]:before,
+.coveo-facet-search-results span.coveo-facet-value-caption[title="User"]:before,
+.coveo-facet-search-results .coveo-facet-breadcrumb-value[title^="User"]:before,
+.coveo-facet-breadcrumb span.coveo-facet-value-caption[title="User"]:before,
+.coveo-facet-breadcrumb .coveo-facet-breadcrumb-value[title^="User"]:before {
   content: "👥";
   margin-right: 5px; }
 
-.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Message"]:before, .coveo-facet-search-results span.coveo-facet-value-caption[title="Message"]:before {
+.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Message"]:before,
+.CoveoFacet[data-field="@objecttype"] .coveo-facet-breadcrumb-value[title^="Message"]:before,
+.coveo-facet-search-results span.coveo-facet-value-caption[title="Message"]:before,
+.coveo-facet-search-results .coveo-facet-breadcrumb-value[title^="Message"]:before,
+.coveo-facet-breadcrumb span.coveo-facet-value-caption[title="Message"]:before,
+.coveo-facet-breadcrumb .coveo-facet-breadcrumb-value[title^="Message"]:before {
   content: "📜";
   margin-right: 5px; }
 
-.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Thread"]:before, .coveo-facet-search-results span.coveo-facet-value-caption[title="Thread"]:before {
+.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Thread"]:before,
+.CoveoFacet[data-field="@objecttype"] .coveo-facet-breadcrumb-value[title^="Thread"]:before,
+.coveo-facet-search-results span.coveo-facet-value-caption[title="Thread"]:before,
+.coveo-facet-search-results .coveo-facet-breadcrumb-value[title^="Thread"]:before,
+.coveo-facet-breadcrumb span.coveo-facet-value-caption[title="Thread"]:before,
+.coveo-facet-breadcrumb .coveo-facet-breadcrumb-value[title^="Thread"]:before {
   content: "🧵";
   margin-right: 5px; }
 
-.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Item"]:before, .coveo-facet-search-results span.coveo-facet-value-caption[title="Item"]:before {
+.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Item"]:before,
+.CoveoFacet[data-field="@objecttype"] .coveo-facet-breadcrumb-value[title^="Item"]:before,
+.coveo-facet-search-results span.coveo-facet-value-caption[title="Item"]:before,
+.coveo-facet-search-results .coveo-facet-breadcrumb-value[title^="Item"]:before,
+.coveo-facet-breadcrumb span.coveo-facet-value-caption[title="Item"]:before,
+.coveo-facet-breadcrumb .coveo-facet-breadcrumb-value[title^="Item"]:before {
   content: "🛍";
   margin-right: 5px; }
 
-.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Case"]:before, .coveo-facet-search-results span.coveo-facet-value-caption[title="Case"]:before {
+.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Case"]:before,
+.CoveoFacet[data-field="@objecttype"] .coveo-facet-breadcrumb-value[title^="Case"]:before,
+.coveo-facet-search-results span.coveo-facet-value-caption[title="Case"]:before,
+.coveo-facet-search-results .coveo-facet-breadcrumb-value[title^="Case"]:before,
+.coveo-facet-breadcrumb span.coveo-facet-value-caption[title="Case"]:before,
+.coveo-facet-breadcrumb .coveo-facet-breadcrumb-value[title^="Case"]:before {
   content: "💼";
   margin-right: 5px; }
 
-.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Task"]:before, .coveo-facet-search-results span.coveo-facet-value-caption[title="Task"]:before {
+.CoveoFacet[data-field="@objecttype"] span.coveo-facet-value-caption[title="Task"]:before,
+.CoveoFacet[data-field="@objecttype"] .coveo-facet-breadcrumb-value[title^="Task"]:before,
+.coveo-facet-search-results span.coveo-facet-value-caption[title="Task"]:before,
+.coveo-facet-search-results .coveo-facet-breadcrumb-value[title^="Task"]:before,
+.coveo-facet-breadcrumb span.coveo-facet-value-caption[title="Task"]:before,
+.coveo-facet-breadcrumb .coveo-facet-breadcrumb-value[title^="Task"]:before {
   content: "✅";
   margin-right: 5px; }
