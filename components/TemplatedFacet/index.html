@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height">
+  <title>Templated Facet Example</title>
+  <link rel="stylesheet" href="./css/CoveoFullSearch.css" />
+  <script src="js/CoveoJsSearch.Lazy.js"></script>
+  <script src="js/TemplatedFacet.js"></script>
+  <script src="js/TemplatedFacet.min.js"></script>
+  <script src="js/templates/templates.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      Coveo.SearchEndpoint.configureSampleEndpointV2();
+      Coveo.init(document.body);
+    })
+  </script>
+</head>
+
+<body id="search" class='CoveoSearchInterface' data-enable-history="true">
+  <span class="CoveoTemplatedFacet" data-field="@objecttype" data-result-container=".coveo-tab-section">
+    <script type="text/x-underscore-template">
+      <a class="CoveoTab"
+        data-id="dynamic_<%= field.value %>"
+        data-caption=" "
+        data-expression="<%= originalField %>==<%= field.value %>">
+          <div style="position: relative;">
+              <%= field.value %>
+            <span style="position: absolute; right: 0px; top: 15px; font-size: 10px;">(<%= field.numberOfResults %>)</span>
+          </div>
+        </a>
+    </script>
+  </span>
+  <div class="coveo-tab-section">
+    <a class="CoveoTab" data-id="All" data-caption="All Content"></a>
+  </div>
+  <div class='coveo-search-section'>
+    <div class="CoveoSettings"></div>
+    <div class="CoveoSearchbox" data-enable-omnibox="true"></div>
+  </div>
+  <div class="coveo-main-section">
+    <div class="coveo-facet-column">
+      <div class="CoveoFacet" data-title="Type" data-field="@objecttype" data-enable-settings="false" data-easy-collapsible="true" data-auto-collapse="true"></div>
+    </div>
+    <div class="coveo-results-column">
+      <div class="CoveoBreadcrumb"></div>
+      <div class="CoveoHiddenQuery"></div>
+      <div class="CoveoDidYouMean"></div>
+      <div class="CoveoErrorReport"></div>
+      <div class="CoveoResultList" data-layout="list" data-wait-animation="fade" data-auto-select-fields-to-include="true"></div>
+    </div>
+  </div>
+</body>
+
+</html>

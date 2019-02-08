@@ -1,0 +1,1 @@
+export { TemplatedFacet } from "./TemplatedFacet"

@@ -1,0 +1,5 @@
+.CoveoTemplatedFacet {
+    &:not(.initialized) {
+      display: none;
+    }
+  }
