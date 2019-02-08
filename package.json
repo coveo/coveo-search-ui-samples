@@ -60,6 +60,9 @@
   },
   "snyk": true,
   "dependencies": {
-    "snyk": "^1.89.0"
+    "css-loader": "^2.1.0",
+    "sass-loader": "^7.1.0",
+    "snyk": "^1.89.0",
+    "style-loader": "^0.23.1"
   }
 }

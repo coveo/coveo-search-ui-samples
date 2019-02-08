@@ -4,12 +4,14 @@ const chokidar = require("chokidar");
 const WebSocket = require('ws');
 const components = require("./components");
 
+const rootPath = require("./config").rootPath;
+
 function PagesFileWatcher(server, port) {
     const socket = new WebSocket(`ws://localhost:${port}`);
 
     const watchers = components.getComponentNames().map(componentName => {
         const basePath =  components.getPageEntryForComponent(componentName);
-        const destination = `${__dirname}/bin/${componentName}.html`;
+        const destination = `${rootPath}/${componentName}.html`;
         const watcher = chokidar.watch(basePath, {});
 
         console.log(`Now watching ${basePath} to ${destination}`);

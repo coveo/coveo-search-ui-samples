@@ -3,8 +3,10 @@ const serve = require('webpack-serve');
 const PagesFileWatcher = require("./webpack-serve.filewatcher.plugin");
 const jslibRouter = require("./webpack-serve.jslib.middleware");
 
+const rootFolder = require("./config").rootPath;
+
 const serveConfig = {
-    content: ["bin"],
+    content: [rootFolder],
     port: 3000,
     hot: {
         host: 'localhost',

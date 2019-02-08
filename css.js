@@ -3,17 +3,21 @@ const component = require("./components");
 const sass = require('node-sass');
 const fs = require('fs');
 
-const rootFolder = "./docs";
+const rootFolder = require("./config").rootPath;
 
 const createCssFileForComponent = (componentName) => {
-  console.log(`Creating css file for ${componentName}`);
+  const sassIndexFile = component.getSassEntryForComponent(componentName);
 
-  const result = sass.renderSync({
-    file: component.getSassEntryForComponent(componentName),
-    outFile: `${rootFolder}/css/${componentName}.css`
-  });
+  if (fs.existsSync(sassIndexFile)) {
+    console.log(`Creating css file for ${componentName}`);
 
-  fs.writeFileSync(`${rootFolder}/css/${componentName}.css`, result.css);
+    const result = sass.renderSync({
+      file: sassIndexFile,
+      outFile: `${rootFolder}/css/${componentName}.css`
+    });
+
+    fs.writeFileSync(`${rootFolder}/css/${componentName}.css`, result.css);
+  }
 };
 
 component.getComponentNames().forEach(createCssFileForComponent);

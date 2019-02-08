@@ -1,0 +1,59 @@
+$main-color: #f7f8f9;
+$font-color: #1d4f76;
+$border-color: #bcc3ca;
+$hover-color: #e6ecf0;
+
+.hidden {
+    display: none;
+}
+
+.CoveoSearchHistory {
+    margin: 10px 0;
+    overflow: hidden;
+    border: 1px solid $border-color;
+
+    .search-history-clear-button {
+        width: 20px;
+        height: 48px;
+
+        :hover {
+            cursor: pointer;
+        }
+    }
+
+    .panel-heading {
+        font-weight: 300;
+        background: $main-color;
+        color: $font-color;
+        padding: 10px 15px;
+        font-size: 16px;
+
+        .search-history-clear-button {
+            float: right;
+        }
+
+        svg {
+            margin-right: 7px;
+        }
+    }
+
+    .queries-history-list {
+        margin: 0;
+        padding-left: 0;
+
+        >li {
+            font-weight: 500;
+            word-wrap: break-word;
+            padding: 5px 20px;
+
+            &:hover {
+                background-color: $hover-color;
+            }
+
+            >div {
+                cursor: pointer;
+                line-height: 1.3em;
+            }
+        }
+    }
+}

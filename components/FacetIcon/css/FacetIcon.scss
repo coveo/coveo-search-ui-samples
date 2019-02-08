@@ -1,0 +1,10 @@
+@import "FacetIconsMixin.scss";
+
+@include facet-with-icons("@objecttype", (
+  "User": '👥',
+  "Message": '📜',
+  "Thread": '🧵',
+  "Item": '🛍',
+  "Case": '💼',
+  "Task": '✅'
+));

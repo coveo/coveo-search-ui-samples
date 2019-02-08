@@ -8,6 +8,8 @@ import {
   Initialization
 } from 'coveo-search-ui';
 
+import "./HelloWorld.scss";
+
 export interface IHelloWorldOptions {
   dummyOptionText: string;
   dummyOptionQuery: string;

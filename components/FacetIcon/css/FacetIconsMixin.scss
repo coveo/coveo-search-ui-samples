@@ -1,0 +1,12 @@
+@mixin facet-with-icons($facetField, $iconMap) {
+  .CoveoFacet[data-field="#{$facetField}"], .coveo-facet-search-results {
+    @each $title, $content in $iconMap {
+      span.coveo-facet-value-caption[title="#{$title}"] {
+        &:before {
+          content: $content;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

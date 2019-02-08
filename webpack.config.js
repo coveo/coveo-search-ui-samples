@@ -10,7 +10,7 @@ if (minimize) {
   console.log('Building non minified version of the library'.bgGreen.red);
 }
 
-const rootFolder = "./docs";
+const rootFolder = require("./config").rootPath;
 
 const entries = {};
 components.getComponentNames().forEach(componentName => {
@@ -29,17 +29,30 @@ module.exports = [{
   externals: [{
     // Defines the module "coveo-search-ui" as external, "Coveo" is defined in the global scope. 
     // This requires you to load the original CoveoJsSearch.js file in your page.
-    "coveo-search-ui":"Coveo"
+    "coveo-search-ui": "Coveo"
   }],
   resolve: {
     extensions: ['.ts', '.js'],
   },
   module: {
     rules: [{
-      test: /\.ts$/, 
-      loader: 'ts-loader',
-      options: {}
-    }]
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          'sass-loader'
+        ]
+      }, {
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        options: {}
+      }
+    ]
   },
   bail: true
 }]
