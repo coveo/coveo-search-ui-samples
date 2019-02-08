@@ -10,7 +10,6 @@ import {
   IIndexFieldValue,
   Initialization,
   Assert,
-  IListFieldValuesRequest,
   IGroupByRequest,
   InitializationEvents
 } from 'coveo-search-ui';

@@ -7,7 +7,7 @@ Node JS => 8.0
 ## Setup
 
 1. Fork / clone the repository.
-2. `npm install` at the top of the repository.
+2. `yarn` at the top of the repository to install dependencies.
 3. `npm run watch` at the top of the repository.
 4. Open `./docs/Index.html` in a browser. You should get a working, standard search page. Change the HTML file to test different components.
 
