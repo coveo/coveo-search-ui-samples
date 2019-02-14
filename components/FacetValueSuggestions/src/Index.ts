@@ -1,0 +1,1 @@
+// Empty. The component is included OOTB.
