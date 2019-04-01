@@ -1,6 +1,8 @@
 # search-ui-samples
 A project to showcase custom components for the [Coveo Javascript Search Framework](https://github.com/coveo/search-ui).
 
+Click here to see the available samples: [Coveo Javascript Search Framework Samples](https://coveo.github.io/coveo-search-ui-samples/).
+
 ## Requirements
 Node JS => 8.0
 
