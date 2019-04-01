@@ -9,7 +9,8 @@ Node JS => 8.0
 1. Fork / clone the repository.
 2. `yarn` at the top of the repository to install dependencies.
 3. `npm run watch` at the top of the repository.
-4. Open `./docs/Index.html` in a browser. You should get a working, standard search page. Change the HTML file to test different components.
+4. Open `./docs/Index.html` in a browser.
+5. Click on any of the links to see the Search Page sample
 
 ## Structure
 
@@ -29,7 +30,7 @@ This project is based of the [Coveo Search UI Seed](https://github.com/coveo/sea
 
 ## Build task
 
-* `npm run setup ` will copy the needed resources (`index.html`, `templates`, etc.) in the `docs` folder.
+* `npm run setup` will copy the needed resources (`index.html`, `templates`, etc.) in the `docs` folder.
 * `npm run css` will build the sass files into a css file in the `docs` folder.
 * `npm run build` will run the `setup`, `css` task, then compile the typescript code.
 * `npm run prod` will build the project to be ready for a commit and publishing the new components.

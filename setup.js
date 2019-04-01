@@ -35,9 +35,6 @@ const folderToCopy = [{
 }, {
   "src": './templates',
   "dest": `${rootFolder}/templates`
-}, {
-  "src": './pages',
-  "dest": `${rootFolder}`
 }];
 
 directoriesToCreate.filter(directory => !fs.existsSync(directory))

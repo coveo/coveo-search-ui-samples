@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start --single-run",
-    "setup": "node setup.js",
+    "setup": "node setup.js && node updateIndexPage.js",
     "build": "npm run setup && npm run css && webpack",
     "minimize": "webpack --minimize",
     "css": "node css.js",
