@@ -1,0 +1,35 @@
+@import "FacetColorMixin.scss";
+
+$colorMap: (
+  "Black": #000000,
+  "DarkGrey": darkgray,
+  "Gray": grey,
+  "Silver": silver,
+  "Stainless": silver,
+  "Platinum": grey,
+  "White": #FFFFFF,
+  "Pair": #007F66,
+  "Red": red,
+  "Sunburst": #800020,
+  "Brown": #800020,
+  "Beige": Beige,
+  "Green": Green,
+  "Blue": rgb(0, 100, 200),
+  "Purple": Purple,
+  "Yellow": #FFDF00,
+  "Gold": gold,
+  "Natural": #ffa54f,
+  "Tweed": #ffa54f,
+  "Orange": Orange,
+  "Coral": #f88379,
+  "Turquoise": #40E0D0,
+  "Tobacco Burst": #6d5843,
+  "Oiled": beige,
+  "Navy Floral": navy,
+  "Tan": tan,
+  "Dark Wood": #6d4724
+);
+@include facet-with-colors("@color", $colorMap);
+.swatches {
+  @include result-template-color($colorMap)
+}

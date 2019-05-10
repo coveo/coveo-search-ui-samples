@@ -1,0 +1,54 @@
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@mixin facet-with-colors($facetField, $colorMap) {
+  .CoveoFacet[data-field="#{$facetField}"],
+  .coveo-facet-search-results,
+  .coveo-facet-breadcrumb
+   {
+    @each $title, $color in $colorMap {
+      .coveo-facet-value[data-value="#{$title}"] {
+        .coveo-facet-value-checkbox {
+          background-color: $color
+        }
+        @if (lightness($color) < 50) {
+          &.coveo-selected .coveo-facet-value-checkbox svg .coveo-hook-svg,
+          &:hover:not(.coveo-facet-search-button):not(.coveo-excluded):not(.coveo-facet-value-will-exclude):not(.coveo-has-childs-selected) .coveo-facet-value-checkbox svg .coveo-hook-svg {
+            fill: #ffffff;
+          }
+        }
+      }
+      .coveo-facet-breadcrumb-value[title^="#{$title}"] {
+        margin-left: 20px;
+
+        &:before {
+          content: ' ';
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          background-color: $color;
+        }
+      }
+    }
+  }
+}
+
+@mixin result-template-color($colorMap) {
+  @each $title, $color in $colorMap {
+    &.#{str-replace($title, " ", ".")} {
+      background-color: $color;
+      box-shadow: 0 0 2px $color;
+      @if (lightness($color) > 50) {
+        border: 1px solid black;
+      }
+    }
+  }
+}
+
