@@ -216,9 +216,6 @@ var TemplatedFacet = /** @class */ (function (_super) {
         if (_this.options.updateOnNewQuery) {
             _this.bindEventsForEachQuery();
         }
-        else {
-            _this.bindEventsForOneTimeTrigger();
-        }
         _this.bind.onRootElement(coveo_search_ui_1.InitializationEvents.afterComponentsInitialization, function (args) { return _this.onAfterComponentsInitialization(args); });
         return _this;
     }
@@ -226,83 +223,62 @@ var TemplatedFacet = /** @class */ (function (_super) {
         var _this = this;
         this.bind.onRootElement(coveo_search_ui_1.QueryEvents.doneBuildingQuery, function (args) {
             _this.lastGroupByRequestId = args.queryBuilder.groupByRequests.length;
-            var groupByRequest = _this.getGroupByRequest();
-            if (_this.options.queryOverride === '@uri') {
-                groupByRequest.queryOverride = args.queryBuilder.expression.build();
-            }
-            groupByRequest.advancedQueryOverride = args.queryBuilder.advancedExpression.build();
+            var groupByRequest = _this.getGroupByRequestFromQueryBuilder(args.queryBuilder);
             args.queryBuilder.groupByRequests.push(groupByRequest);
         });
         this.bind.onRootElement(coveo_search_ui_1.QueryEvents.querySuccess, function (args) {
             _this.handleFieldValues(args.results.groupByResults[_this.lastGroupByRequestId].values);
         });
     };
-    TemplatedFacet.prototype.bindEventsForOneTimeTrigger = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                if (this.searchInterface.options.autoTriggerQuery) {
-                    // If the first query is executed on load, we can hook our request to it.
-                    this.bindGroupByRequestOnTheNextQuery();
-                }
-                else {
-                    // If no query is triggered, fetch the fields directly.
-                    this.executeFieldUpdateUsingEndpoint();
-                }
-                return [2 /*return*/];
-            });
-        });
-    };
-    TemplatedFacet.prototype.bindGroupByRequestOnTheNextQuery = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                this.bind.oneRootElement(coveo_search_ui_1.QueryEvents.doneBuildingQuery, function (args) {
-                    _this.lastGroupByRequestId = args.queryBuilder.groupByRequests.length;
-                    args.queryBuilder.groupByRequests.push(_this.getGroupByRequest());
-                });
-                this.bind.oneRootElement(coveo_search_ui_1.QueryEvents.querySuccess, function (args) {
-                    _this.handleFieldValues(args.results.groupByResults[_this.lastGroupByRequestId].values);
-                });
-                return [2 /*return*/];
-            });
-        });
-    };
     TemplatedFacet.prototype.onAfterComponentsInitialization = function (args) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                // Defer was introduced in later versions, do not break if the version does not support it yet.
-                if (!!args && !!args.defer) {
-                    // This ensure that the first values are executed so that the state can be read by those dynamic components.
-                    args.defer.push(this.executeFieldUpdateUsingEndpoint());
-                }
-                return [2 /*return*/];
-            });
-        });
+        // Defer was introduced in later versions, do not break if the version does not support it yet.
+        if (!!args && !!args.defer) {
+            // This ensure that the first values are executed so that the state can be read by those dynamic components.
+            args.defer.push(this.executeFieldUpdateUsingEndpoint());
+        }
     };
     TemplatedFacet.prototype.executeFieldUpdateUsingEndpoint = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var values, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var queryBuilder, buildingQuery, _a, field, queryOverride, constantQueryOverride, maximumNumberOfValues, values, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        _b.trys.push([0, 2, , 3]);
+                        queryBuilder = new coveo_search_ui_1.QueryBuilder();
+                        buildingQuery = {
+                            queryBuilder: queryBuilder,
+                            cancel: false,
+                            searchAsYouType: false
+                        };
+                        coveo_search_ui_1.$$(this.searchInterface.element).trigger(coveo_search_ui_1.QueryEvents.buildingQuery, buildingQuery);
+                        coveo_search_ui_1.$$(this.searchInterface.element).trigger(coveo_search_ui_1.QueryEvents.doneBuildingQuery, buildingQuery);
+                        _a = this.getGroupByRequestFromQueryBuilder(queryBuilder), field = _a.field, queryOverride = _a.queryOverride, constantQueryOverride = _a.constantQueryOverride, maximumNumberOfValues = _a.maximumNumberOfValues;
                         return [4 /*yield*/, this.searchInterface.queryController.getEndpoint().listFieldValues({
-                                field: this.options.field.toString(),
-                                queryOverride: this.options.queryOverride,
-                                maximumNumberOfValues: this.options.maximumNumberOfValues
+                                field: field,
+                                queryOverride: queryOverride,
+                                maximumNumberOfValues: maximumNumberOfValues,
+                                constantQueryOverride: constantQueryOverride
                             })];
                     case 1:
-                        values = _a.sent();
+                        values = _b.sent();
                         this.handleFieldValues(values);
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/];
                     case 2:
-                        error_1 = _a.sent();
-                        console.error(error_1);
+                        error_1 = _b.sent();
+                        new coveo_search_ui_1.Logger(this).error(error_1);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
             });
         });
+    };
+    TemplatedFacet.prototype.getGroupByRequestFromQueryBuilder = function (queryBuilder) {
+        var groupByRequest = this.getGroupByRequest();
+        if (this.options.queryOverride === '@uri') {
+            groupByRequest.queryOverride = queryBuilder.expression.build();
+        }
+        groupByRequest.advancedQueryOverride = queryBuilder.advancedExpression.build();
+        return groupByRequest;
     };
     TemplatedFacet.prototype.getGroupByRequest = function () {
         return {

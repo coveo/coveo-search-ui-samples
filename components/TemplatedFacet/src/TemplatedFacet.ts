@@ -1,20 +1,24 @@
 import {
+  $$,
+  Assert,
   Component,
   ComponentOptions,
-  IFieldOption,
   IComponentBindings,
-  $$,
-  QueryEvents,
   IDoneBuildingQueryEventArgs,
-  IQuerySuccessEventArgs,
-  IIndexFieldValue,
-  Initialization,
-  Assert,
+  IFieldOption,
   IGroupByRequest,
-  InitializationEvents
+  IIndexFieldValue,
+  IInitializationEventArgs,
+  Initialization,
+  InitializationEvents,
+  IQuerySuccessEventArgs,
+  QueryEvents,
+  Logger,
+  IBuildingQueryEventArgs,
+  QueryBuilder
 } from 'coveo-search-ui';
+import './TemplatedFacet.scss';
 
-import "./TemplatedFacet.scss";
 
 export type ITemplatedFacetValidSortCriteria = 'score' | 'alphaascending' | 'alphadescending' | 'chisquare' | 'nosort';
 
@@ -110,21 +114,15 @@ export class TemplatedFacet extends Component {
 
     if (this.options.updateOnNewQuery) {
       this.bindEventsForEachQuery();
-    } else {
-      this.bindEventsForOneTimeTrigger();
     }
 
-    this.bind.onRootElement(InitializationEvents.afterComponentsInitialization, args => this.onAfterComponentsInitialization(args));
+    this.bind.onRootElement(InitializationEvents.afterComponentsInitialization, (args: IInitializationEventArgs) => this.onAfterComponentsInitialization(args));
   }
 
   private bindEventsForEachQuery() {
     this.bind.onRootElement(QueryEvents.doneBuildingQuery, (args: IDoneBuildingQueryEventArgs) => {
       this.lastGroupByRequestId = args.queryBuilder.groupByRequests.length;
-      const groupByRequest = this.getGroupByRequest();
-      if (this.options.queryOverride === '@uri') {
-        groupByRequest.queryOverride = args.queryBuilder.expression.build();
-      }
-      groupByRequest.advancedQueryOverride = args.queryBuilder.advancedExpression.build();
+      const groupByRequest = this.getGroupByRequestFromQueryBuilder(args.queryBuilder);
       args.queryBuilder.groupByRequests.push(groupByRequest);
     });
     this.bind.onRootElement(QueryEvents.querySuccess, (args: IQuerySuccessEventArgs) => {
@@ -132,41 +130,50 @@ export class TemplatedFacet extends Component {
     });
   }
 
-  private async bindEventsForOneTimeTrigger() {
-    if (this.searchInterface.options.autoTriggerQuery) {
-      // If the first query is executed on load, we can hook our request to it.
-      this.bindGroupByRequestOnTheNextQuery();
-    } else {
-      // If no query is triggered, fetch the fields directly.
-      this.executeFieldUpdateUsingEndpoint();
-    }
-  }
-
-  private async bindGroupByRequestOnTheNextQuery() {
-    this.bind.oneRootElement(QueryEvents.doneBuildingQuery, (args: IDoneBuildingQueryEventArgs) => {
-      this.lastGroupByRequestId = args.queryBuilder.groupByRequests.length;
-      args.queryBuilder.groupByRequests.push(this.getGroupByRequest());
-    });
-    this.bind.oneRootElement(QueryEvents.querySuccess, (args: IQuerySuccessEventArgs) => {
-      this.handleFieldValues(args.results.groupByResults[this.lastGroupByRequestId].values);
-    });
-  }
-
-  private async onAfterComponentsInitialization(args: any) {
+  private onAfterComponentsInitialization(args: IInitializationEventArgs) {
     // Defer was introduced in later versions, do not break if the version does not support it yet.
     if (!!args && !!args.defer) {
       // This ensure that the first values are executed so that the state can be read by those dynamic components.
-      args.defer.push(async () => await this.executeFieldUpdateUsingEndpoint());
+      args.defer.push(this.executeFieldUpdateUsingEndpoint());
     }
   }
 
   private async executeFieldUpdateUsingEndpoint() {
-    const values = await this.searchInterface.queryController.getEndpoint().listFieldValues({
-      field: this.options.field.toString(),
-      queryOverride: this.options.queryOverride,
-      maximumNumberOfValues: this.options.maximumNumberOfValues
-    });
-    this.handleFieldValues(values);
+    try {
+      const queryBuilder = new QueryBuilder();
+      const buildingQuery: IBuildingQueryEventArgs = {
+        queryBuilder,
+        cancel: false,
+        searchAsYouType: false
+      };
+      $$(this.searchInterface.element).trigger(QueryEvents.buildingQuery, buildingQuery);
+      $$(this.searchInterface.element).trigger(QueryEvents.doneBuildingQuery, buildingQuery);
+      const {
+        field,
+        queryOverride,
+        constantQueryOverride,
+        maximumNumberOfValues
+      } = this.getGroupByRequestFromQueryBuilder(queryBuilder);
+      const values = await this.searchInterface.queryController.getEndpoint().listFieldValues({
+        field,
+        queryOverride,
+        maximumNumberOfValues,
+        constantQueryOverride
+      });
+      this.handleFieldValues(values);
+      return;
+    } catch (error) {
+      new Logger(this).error(error);
+    }
+  }
+
+  private getGroupByRequestFromQueryBuilder(queryBuilder: QueryBuilder): IGroupByRequest {
+    const groupByRequest = this.getGroupByRequest();
+    if (this.options.queryOverride === '@uri') {
+      groupByRequest.queryOverride = queryBuilder.expression.build();
+    }
+    groupByRequest.advancedQueryOverride = queryBuilder.advancedExpression.build();
+    return groupByRequest;
   }
 
   private getGroupByRequest(): IGroupByRequest {
