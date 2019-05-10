@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height">
+  <title>Query Suggestions List</title>
+  <link rel="stylesheet" href="./css/CoveoFullSearch.css" />
+  <script src="js/CoveoJsSearch.Lazy.js"></script>
+  <script src="js/QuerySuggestionsList.js"></script>
+  <script src="js/QuerySuggestionsList.min.js"></script>
+  <script src="js/templates/templates.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      Coveo.SearchEndpoint.endpoints['default'] = new Coveo.SearchEndpoint({
+  restUri: 'https://search.cloud.coveo.com/rest/search',
+  accessToken: 'eyJhbGciOiJIUzI1NiJ9.eyJ2OCI6dHJ1ZSwib3JnYW5pemF0aW9uIjoic2VhcmNoYXN5b3V0eXBlMGo5MHZ6YzciLCJ1c2VySWRzIjpbeyJwcm92aWRlciI6IkVtYWlsIFNlY3VyaXR5IFByb3ZpZGVyIiwibmFtZSI6ImZsZ3VpbGxlbWV0dGVAY292ZW8uY29tIiwidHlwZSI6IlVzZXIifV0sInJvbGVzIjpbInF1ZXJ5RXhlY3V0b3IiLCJzZWFyY2hQYWdlUmVhZCIsInNlYXJjaFBhZ2VXcml0ZSJdLCJ1c2VyRGlzcGxheU5hbWUiOiJGcmFuY29pcyBMYWNoYW5jZS1HdWlsbGVtZXR0ZSIsImV4cCI6MTU1NjI5NDgwMSwiaWF0IjoxNTU2MjA4NDAxfQ.OAZ5GGmAE39i7Wps_kRpRkyuaBaLach8NAVyMrkEppc',
+  queryStringArguments: {
+    organizationId: 'searchasyoutype0j90vzc7'
+  },
+  renewAccessToken: function() {
+    window.location = window.location.pathname + window.location.hash
+  }
+});
+      Coveo.init(document.body);
+    })
+  </script>
+</head>
+
+<body id="search" class='CoveoSearchInterface' data-enable-history="true">
+  <div class='coveo-search-section'>
+    <div class="CoveoSettings"></div>
+    <div class="CoveoSearchbox" data-enable-search-as-you-type="true" data-search-as-you-type-delay="1" data-enable-query-suggest-addon="false"></div>
+    <div class=CoveoQuerySuggestionsList></div>
+  </div>
+  <div class="coveo-main-section">
+    <div class="coveo-facet-column">
+      <div class="CoveoFacet" data-title="Type" data-field="@objecttype" data-enable-settings="false" data-easy-collapsible="true" data-auto-collapse="true"></div>
+    </div>
+    <div class="coveo-results-column">
+      <div class="CoveoBreadcrumb"></div>
+      <div class="CoveoHiddenQuery"></div>
+      <div class="CoveoDidYouMean"></div>
+      <div class="CoveoErrorReport"></div>
+      <div class="CoveoResultList" data-layout="card" data-wait-animation="fade">
+        <script id="Default" class="result-template" type="text/underscore" data-layout="card">
+          <div class="productCard">
+          <img src="{{- raw.image}}" />
+          <a href="{{- raw.clickableuri }}" class="CoveoResultLink">{{- raw.producttitle}}</a>
+        </div>
+        </script>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

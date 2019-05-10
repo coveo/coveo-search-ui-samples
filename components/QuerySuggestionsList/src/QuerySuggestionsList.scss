@@ -1,0 +1,13 @@
+.suggestions-container {
+    display: flex;
+
+    .suggestion {
+        padding: 5px;
+        text-decoration: underline;
+
+        &:hover {
+            background-color: lightgray;
+            cursor: pointer;
+        }
+    }
+}
