@@ -12,18 +12,9 @@
   <script src="js/templates/templates.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      Coveo.SearchEndpoint.endpoints['default'] = new Coveo.SearchEndpoint({
-  restUri: 'https://search.cloud.coveo.com/rest/search',
-  accessToken: 'eyJhbGciOiJIUzI1NiJ9.eyJ2OCI6dHJ1ZSwib3JnYW5pemF0aW9uIjoic2VhcmNoYXN5b3V0eXBlMGo5MHZ6YzciLCJ1c2VySWRzIjpbeyJwcm92aWRlciI6IkVtYWlsIFNlY3VyaXR5IFByb3ZpZGVyIiwibmFtZSI6ImZsZ3VpbGxlbWV0dGVAY292ZW8uY29tIiwidHlwZSI6IlVzZXIifV0sInJvbGVzIjpbInF1ZXJ5RXhlY3V0b3IiLCJzZWFyY2hQYWdlUmVhZCIsInNlYXJjaFBhZ2VXcml0ZSJdLCJ1c2VyRGlzcGxheU5hbWUiOiJGcmFuY29pcyBMYWNoYW5jZS1HdWlsbGVtZXR0ZSIsImV4cCI6MTU1NjI5NDgwMSwiaWF0IjoxNTU2MjA4NDAxfQ.OAZ5GGmAE39i7Wps_kRpRkyuaBaLach8NAVyMrkEppc',
-  queryStringArguments: {
-    organizationId: 'searchasyoutype0j90vzc7'
-  },
-  renewAccessToken: function() {
-    window.location = window.location.pathname + window.location.hash
-  }
-});
+      Coveo.SearchEndpoint.configureSampleEndpointV2();
       Coveo.init(document.body);
-    })
+    });
   </script>
 </head>
 
@@ -42,14 +33,7 @@
       <div class="CoveoHiddenQuery"></div>
       <div class="CoveoDidYouMean"></div>
       <div class="CoveoErrorReport"></div>
-      <div class="CoveoResultList" data-layout="card" data-wait-animation="fade">
-        <script id="Default" class="result-template" type="text/underscore" data-layout="card">
-          <div class="productCard">
-          <img src="{{- raw.image}}" />
-          <a href="{{- raw.clickableuri }}" class="CoveoResultLink">{{- raw.producttitle}}</a>
-        </div>
-        </script>
-      </div>
+      <div class="CoveoResultList" data-layout="card" data-wait-animation="fade"></div>
     </div>
   </div>
 </body>

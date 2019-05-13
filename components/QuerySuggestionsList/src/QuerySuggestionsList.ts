@@ -10,8 +10,10 @@ import {
     Cookie,
     IBuildingQueryEventArgs,
     IQuerySuggestCompletion,
+    KeyboardUtils,
+    KEYBOARD
 } from 'coveo-search-ui';
-import "./QuerySuggestionsList.scss";
+import './QuerySuggestionsList.scss';
 
 export interface IQuerySuggestionsListOptions {
     numberOfSuggestions: number;
@@ -41,7 +43,9 @@ export class QuerySuggestionsList extends Component {
 
         const container = document.createElement('div');
         container.classList.add('suggestions-container');
-        results.completions.map(completion => this.renderCompletion(completion))
+        results.completions
+            .filter(completion => completion.expression !== text)
+            .map(completion => this.renderCompletion(completion))
             .forEach(element => container.appendChild(element));
 
         this.element.innerHTML = '';
@@ -51,9 +55,16 @@ export class QuerySuggestionsList extends Component {
     private renderCompletion(completion: IQuerySuggestCompletion): HTMLElement {
         const element = document.createElement('div');
 
+        const applyCompletion = () =>  this.setExpressionInState(completion.expression);
+
         element.classList.add('suggestion');
         element.innerHTML = completion.expression;
-        element.addEventListener('click', () =>  this.setExpressionInState(completion.expression));
+        element.addEventListener('click', applyCompletion);
+        element.addEventListener('keyup', KeyboardUtils.keypressAction(KEYBOARD.ENTER, applyCompletion));
+        element.setAttribute('role', 'button');
+        element.setAttribute('aria-label', completion.expression);
+        element.setAttribute('tabindex', '0');
+
 
         return element;
     }
