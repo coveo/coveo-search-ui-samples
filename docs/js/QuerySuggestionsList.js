@@ -216,7 +216,9 @@ var QuerySuggestionsList = /** @class */ (function (_super) {
                         results = _a.sent();
                         container = document.createElement('div');
                         container.classList.add('suggestions-container');
-                        results.completions.map(function (completion) { return _this.renderCompletion(completion); })
+                        results.completions
+                            .filter(function (completion) { return completion.expression !== text; })
+                            .map(function (completion) { return _this.renderCompletion(completion); })
                             .forEach(function (element) { return container.appendChild(element); });
                         this.element.innerHTML = '';
                         this.element.appendChild(container);
@@ -228,9 +230,14 @@ var QuerySuggestionsList = /** @class */ (function (_super) {
     QuerySuggestionsList.prototype.renderCompletion = function (completion) {
         var _this = this;
         var element = document.createElement('div');
+        var applyCompletion = function () { return _this.setExpressionInState(completion.expression); };
         element.classList.add('suggestion');
         element.innerHTML = completion.expression;
-        element.addEventListener('click', function () { return _this.setExpressionInState(completion.expression); });
+        element.addEventListener('click', applyCompletion);
+        element.addEventListener('keyup', coveo_search_ui_1.KeyboardUtils.keypressAction(coveo_search_ui_1.KEYBOARD.ENTER, applyCompletion));
+        element.setAttribute('role', 'button');
+        element.setAttribute('aria-label', completion.expression);
+        element.setAttribute('tabindex', '0');
         return element;
     };
     QuerySuggestionsList.prototype.setExpressionInState = function (expression) {
