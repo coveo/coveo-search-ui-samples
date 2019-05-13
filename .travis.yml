@@ -1,0 +1,21 @@
+language: node_js
+addons:
+  chrome: stable
+node_js:
+- stable
+cache:
+  directories:
+  - node_modules
+install:
+- npm install
+script:
+- npm run build
+- npm run prod
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GH_TOKEN
+  keep-history: true # By default, Travis uses push --force and wipes out commit history
+  verbose: true
+  on:
+    branch: master
