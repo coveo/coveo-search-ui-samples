@@ -65,7 +65,6 @@ export class QuerySuggestionsList extends Component {
         element.setAttribute('aria-label', completion.expression);
         element.setAttribute('tabindex', '0');
 
-
         return element;
     }
 
